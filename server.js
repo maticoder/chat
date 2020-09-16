@@ -1,35 +1,12 @@
-const { ApolloServer, gql } = require("apollo-server");
+const { ApolloServer } = require("apollo-server");
 
-// The GraphQL schema
-const typeDefs = gql`
-    type User {
-        username: String!
-        email: String!
-    }
-    type Query {
-        getUsers: [User]!
-    }
-`;
+const typeDefs = require("./graphql/typeDefs");
+const resolvers = require("./graphql/resolvers");
 
-// A map of functions which return data for the schema.
-const resolvers = {
-    Query: {
-        getUsers: () => {
-            const users = [
-                {
-                    username: "john",
-                    email: "john@email.com",
-                },
-                {
-                    username: "jane",
-                    email: "jane@email.com",
-                },
-            ];
+const User = require("./models/User");
 
-            return users;
-        },
-    },
-};
+// DB connection
+const connect = require("./connect");
 
 const server = new ApolloServer({
     typeDefs,
@@ -38,4 +15,13 @@ const server = new ApolloServer({
 
 server.listen().then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`);
+
+    // connect to the db
+    connect().then(async () => {
+        // let userModel = new User();
+        // userModel.username = "jane";
+        // userModel.email = "jane@email.com";
+        // const user = await userModel.save();
+        // console.log(user);
+    });
 });
