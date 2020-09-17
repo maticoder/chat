@@ -1,6 +1,9 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Col, Image } from "react-bootstrap";
+import classNames from "classnames";
+
+import { useMessageState, useMessageDispatch } from "../../context/message";
 
 const GET_USERS = gql`
     query getUsers {
@@ -19,37 +22,54 @@ const GET_USERS = gql`
     }
 `;
 
-const Users = ({ setSelectedUser }) => {
-    const { loading, data, error } = useQuery(GET_USERS);
+const Users = ({ selectedUser, setSelectedUser }) => {
+    const { users } = useMessageState();
+    const dispatch = useMessageDispatch();
+
+    const { loading } = useQuery(GET_USERS, {
+        onCompleted: (data) =>
+            dispatch({
+                type: "SET_USERS",
+                payload: data.getUsers,
+            }),
+        onError: (err) => console.log(err),
+    });
 
     let usersMarkup;
-    if (!data || loading) {
+    if (!users || loading) {
         usersMarkup = <p>Loading...</p>;
-    } else if (data.getUsers.length === 0) {
+    } else if (users.length === 0) {
         usersMarkup = <p>No users have joined yet</p>;
-    } else if (data.getUsers.length > 0) {
-        usersMarkup = data.getUsers.map((user) => (
-            <div
-                className="d-flex p-3"
-                key={user.username}
-                onClick={() => setSelectedUser(user.username)}
-            >
-                <Image
-                    src={user.imageUrl}
-                    roundedCircle
-                    className="mr-2"
-                    style={{ width: 50, height: 50, objectFit: "cover" }}
-                />
-                <div>
-                    <p className="text-success">{user.username}</p>
-                    <p className="font-weight-light">
-                        {user.latestMessage
-                            ? user.latestMessage.content
-                            : "You are now connected"}
-                    </p>
+    } else if (users.length > 0) {
+        usersMarkup = users.map((user) => {
+            const selected = selectedUser === user.username;
+
+            return (
+                <div
+                    role="button"
+                    className={classNames("user-div d-flex p-3", {
+                        "bg-white": selected,
+                    })}
+                    key={user.username}
+                    onClick={() => setSelectedUser(user.username)}
+                >
+                    <Image
+                        src={user.imageUrl}
+                        roundedCircle
+                        className="mr-2"
+                        style={{ width: 50, height: 50, objectFit: "cover" }}
+                    />
+                    <div>
+                        <p className="text-success">{user.username}</p>
+                        <p className="font-weight-light">
+                            {user.latestMessage
+                                ? user.latestMessage.content
+                                : "You are now connected"}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        ));
+            );
+        });
     }
 
     return (
