@@ -3,6 +3,39 @@ const Message = require("../models/Message");
 const { UserInputError, AuthenticationError } = require("apollo-server");
 
 module.exports = {
+    Query: {
+        getMessages: async (parent, { from }, { user }) => {
+            try {
+                if (!user) throw new AuthenticationError("unauthenticated");
+
+                const otherUser = await User.findOne({
+                    username: from,
+                });
+
+                if (!otherUser) throw new UserInputError("user not found");
+
+                const usernames = [user.username, otherUser.username];
+
+                const messages = await Message.find({
+                    from: {
+                        $in: usernames,
+                    },
+                    to: {
+                        $in: usernames,
+                    },
+                }).sort({
+                    createdAt: -1,
+                });
+
+                messages.forEach((message) => (message.uuid = message.id));
+                return messages;
+            } catch (err) {
+                console.log(err);
+                throw err;
+            }
+        },
+    },
+
     Mutation: {
         sendMessage: async (parent, { to, content }, { user }) => {
             try {
@@ -16,7 +49,7 @@ module.exports = {
 
                 if (!recipient) {
                     throw new UserInputError("user not found");
-                } else if ((recipient.username = user.username)) {
+                } else if (recipient.username === user.username) {
                     throw new UserInputError("you cant message yourself");
                 }
 
