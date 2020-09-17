@@ -7,9 +7,6 @@ module.exports = {
         createdAt: (parent) => parent.createdAt.toISOString(),
         uuid: (parent) => parent.id,
     },
-    User: {
-        createdAt: (parent) => parent.createdAt.toISOString(),
-    },
     Query: {
         ...userResolvers.Query,
         ...messageResolvers.Query,
