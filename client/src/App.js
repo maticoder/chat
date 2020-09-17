@@ -8,20 +8,38 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+import { AuthProvider } from "./context/auth";
+import DynamicRoute from "./util/DynamicRoute";
+
 import "./App.css";
 
 const App = () => {
     return (
         <ApolloProvider>
-            <Router>
-                <Container className="pt-5">
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/login" component={Login} />
-                    </Switch>
-                </Container>
-            </Router>
+            <AuthProvider>
+                <Router>
+                    <Container className="pt-5">
+                        <Switch>
+                            <DynamicRoute
+                                exact
+                                path="/"
+                                component={Home}
+                                authenticated
+                            />
+                            <DynamicRoute
+                                path="/register"
+                                component={Register}
+                                guest
+                            />
+                            <DynamicRoute
+                                path="/login"
+                                component={Login}
+                                guest
+                            />
+                        </Switch>
+                    </Container>
+                </Router>
+            </AuthProvider>
         </ApolloProvider>
     );
 };
