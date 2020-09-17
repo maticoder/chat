@@ -5,6 +5,10 @@ const { mergeSchemas } = require("apollo-server");
 module.exports = {
     Message: {
         createdAt: (parent) => parent.createdAt.toISOString(),
+        uuid: (parent) => parent.id,
+    },
+    User: {
+        createdAt: (parent) => parent.createdAt.toISOString(),
     },
     Query: {
         ...userResolvers.Query,

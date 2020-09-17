@@ -27,7 +27,7 @@ module.exports = {
                     createdAt: -1,
                 });
 
-                messages.forEach((message) => (message.uuid = message.id));
+                // messages.forEach((message) => (message.uuid = message.id));
                 return messages;
             } catch (err) {
                 console.log(err);
@@ -63,7 +63,7 @@ module.exports = {
                     content,
                 });
 
-                message.uuid = message.id;
+                // message.uuid = message.id;
 
                 return message;
             } catch (err) {
