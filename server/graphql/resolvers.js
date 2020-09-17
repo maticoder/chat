@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Message = require("../models/Message");
 const bcrypt = require("bcryptjs");
 const { UserInputError, AuthenticationError } = require("apollo-server");
 const jwt = require("jsonwebtoken");
@@ -6,22 +7,10 @@ const { JWT_SECRET } = require("../config/env.json");
 
 module.exports = {
     Query: {
-        getUsers: async (_, __, context) => {
+        getUsers: async (_, __, { user }) => {
             try {
-                let user;
-                if (context.req && context.req.headers.authorization) {
-                    const token = context.req.headers.authorization.split(
-                        "Bearer "
-                    )[1];
-                    jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
-                        if (err) {
-                            throw new AuthenticationError("unauthenticated");
-                        }
-
-                        user = decodedToken;
-
-                        console.log(user);
-                    });
+                if (!user) {
+                    throw new AuthenticationError("unauthenticated");
                 }
 
                 const users = await User.find({
@@ -67,7 +56,7 @@ module.exports = {
 
                 if (!correctPassword) {
                     errors.password = "password is incorrect";
-                    throw new AuthenticationError("password is incorrect", {
+                    throw new UserInputError("password is incorrect", {
                         errors,
                     });
                 }
@@ -143,6 +132,40 @@ module.exports = {
                     errors.general = "Validation problem";
                 }
                 throw new UserInputError("Bad input", { errors });
+            }
+        },
+        sendMessage: async (parent, { to, content }, { user }) => {
+            try {
+                if (!user) {
+                    throw new AuthenticationError("unauthenticated");
+                }
+
+                const recipient = await User.findOne({
+                    username: to,
+                });
+
+                if (!recipient) {
+                    throw new UserInputError("user not found");
+                } else if ((recipient.username = user.username)) {
+                    throw new UserInputError("you cant message yourself");
+                }
+
+                if (content.trim() === "") {
+                    throw new UserInputError("message is empty");
+                }
+
+                const message = await Message.create({
+                    from: user.username,
+                    to,
+                    content,
+                });
+
+                message.uuid = message.id;
+
+                return message;
+            } catch (err) {
+                console.log(err);
+                throw err;
             }
         },
     },

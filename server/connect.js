@@ -3,12 +3,11 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const url =
-    "mongodb+srv://mati:Mati9898@mycluster.actrw.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const { URL } = require("./config/env.json");
 
 const connect = async () => {
     try {
-        await mongoose.connect(url, {
+        await mongoose.connect(URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

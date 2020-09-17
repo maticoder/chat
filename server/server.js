@@ -8,10 +8,12 @@ const User = require("./models/User");
 // DB connection
 const connect = require("./connect");
 
+const contextMiddleware = require("./util/contextMiddleware");
+
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: (ctx) => ctx,
+    context: contextMiddleware,
 });
 
 server.listen().then(({ url }) => {

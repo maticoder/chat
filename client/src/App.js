@@ -1,39 +1,28 @@
 import React from "react";
-import { Card, Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import ApolloProvider from "./ApolloProvider";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import "./App.css";
 
 const App = () => {
     return (
-        <Container className="pt-5">
-            <Row className="bg-white py-5 justify-content-center">
-                <Col sm={8} md={6} lg={4}>
-                    <h1 className="text-center">Register</h1>
-
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Confirm password</Form.Label>
-                            <Form.Control type="password" />
-                        </Form.Group>
-                        <div className="text-center">
-                            <Button variant="success" type="submit">
-                                Register
-                            </Button>
-                        </div>
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
+        <ApolloProvider>
+            <Router>
+                <Container className="pt-5">
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/login" component={Login} />
+                    </Switch>
+                </Container>
+            </Router>
+        </ApolloProvider>
     );
 };
 
