@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -9,14 +9,13 @@ import Messages from "./Messages";
 
 const Home = ({ history }) => {
     const dispatch = useAuthDispatch();
-    const [selectedUser, setSelectedUser] = useState(null);
 
     const logout = () => {
         dispatch({
             type: "LOGOUT",
         });
 
-        history.push("/login");
+        window.location.href = "/login";
     };
 
     return (
@@ -33,11 +32,8 @@ const Home = ({ history }) => {
                 </Button>
             </Row>
             <Row className="bg-white">
-                <Users
-                    selectedUser={selectedUser}
-                    setSelectedUser={setSelectedUser}
-                />
-                <Messages selectedUser={selectedUser} />
+                <Users />
+                <Messages />
             </Row>
         </Fragment>
     );

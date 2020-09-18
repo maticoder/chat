@@ -22,9 +22,11 @@ const GET_USERS = gql`
     }
 `;
 
-const Users = ({ selectedUser, setSelectedUser }) => {
+const Users = () => {
     const { users } = useMessageState();
     const dispatch = useMessageDispatch();
+
+    const selectedUser = users?.find((u) => u.selected === true)?.username;
 
     const { loading } = useQuery(GET_USERS, {
         onCompleted: (data) =>
@@ -51,7 +53,12 @@ const Users = ({ selectedUser, setSelectedUser }) => {
                         "bg-white": selected,
                     })}
                     key={user.username}
-                    onClick={() => setSelectedUser(user.username)}
+                    onClick={() =>
+                        dispatch({
+                            type: "SET_SELECTED_USER",
+                            payload: user.username,
+                        })
+                    }
                 >
                     <Image
                         src={user.imageUrl}
