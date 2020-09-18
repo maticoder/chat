@@ -10811,6 +10811,18 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.app {
+  height: 100vh;
+}
+
+.nav a {
+  color: white;
+}
+
+.nav a:hover {
+  color: white;
+}
+
 .user-div:hover {
   background-color: #fafafa;
 }
@@ -10894,7 +10906,7 @@ a:hover {
 
 .login,
 .register {
-  height: 100vh;
+  height: 90vh;
 }
 
 .login-container,

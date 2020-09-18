@@ -19,6 +19,20 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.app {
+    height: 100vh;
+}
+
+.nav {
+    a {
+        color: white;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
 .user-div:hover {
     background-color: rgb(250, 250, 250);
 }
@@ -92,7 +106,7 @@ a:hover {
 
 .login,
 .register {
-    height: 100vh;
+    height: 90vh;
 }
 
 .login-container,

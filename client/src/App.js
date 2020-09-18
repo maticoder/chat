@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import ApolloProvider from "./ApolloProvider";
 
+import Navbar from "./components/Navbar";
 import Dashboard from "./pages/home/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,25 +20,28 @@ const App = () => {
         <ApolloProvider>
             <AuthProvider>
                 <MessageProvider>
-                    <Router>
-                        <Switch>
-                            <DynamicRoute
-                                path="/dashboard"
-                                component={Dashboard}
-                                authenticated
-                            />
-                            <DynamicRoute
-                                path="/register"
-                                component={Register}
-                                guest
-                            />
-                            <DynamicRoute
-                                path="/login"
-                                component={Login}
-                                guest
-                            />
-                        </Switch>
-                    </Router>
+                    <div className="app">
+                        <Router>
+                            <Navbar />
+                            <Switch>
+                                <DynamicRoute
+                                    path="/dashboard"
+                                    component={Dashboard}
+                                    authenticated
+                                />
+                                <DynamicRoute
+                                    path="/register"
+                                    component={Register}
+                                    guest
+                                />
+                                <DynamicRoute
+                                    path="/login"
+                                    component={Login}
+                                    guest
+                                />
+                            </Switch>
+                        </Router>
+                    </div>
                 </MessageProvider>
             </AuthProvider>
         </ApolloProvider>
