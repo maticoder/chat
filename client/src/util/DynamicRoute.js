@@ -9,7 +9,7 @@ const DynamicRoute = (props) => {
     if (props.authenticated && !user) {
         return <Redirect to="/login" />;
     } else if (props.guest && user) {
-        return <Redirect to="/" />;
+        return <Redirect to="/dashboard" />;
     } else {
         return <Route component={props.component} {...props} />;
     }

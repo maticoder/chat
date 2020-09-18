@@ -1,10 +1,10 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import ApolloProvider from "./ApolloProvider";
 
-import Home from "./pages/home/Home";
+import Dashboard from "./pages/home/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -20,26 +20,23 @@ const App = () => {
             <AuthProvider>
                 <MessageProvider>
                     <Router>
-                        <Container className="pt-5">
-                            <Switch>
-                                <DynamicRoute
-                                    exact
-                                    path="/"
-                                    component={Home}
-                                    authenticated
-                                />
-                                <DynamicRoute
-                                    path="/register"
-                                    component={Register}
-                                    guest
-                                />
-                                <DynamicRoute
-                                    path="/login"
-                                    component={Login}
-                                    guest
-                                />
-                            </Switch>
-                        </Container>
+                        <Switch>
+                            <DynamicRoute
+                                path="/dashboard"
+                                component={Dashboard}
+                                authenticated
+                            />
+                            <DynamicRoute
+                                path="/register"
+                                component={Register}
+                                guest
+                            />
+                            <DynamicRoute
+                                path="/login"
+                                component={Login}
+                                guest
+                            />
+                        </Switch>
                     </Router>
                 </MessageProvider>
             </AuthProvider>

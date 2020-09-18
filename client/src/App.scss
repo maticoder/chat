@@ -7,6 +7,7 @@ $paragraph-margin-bottom: 0;
 $gray-600: rgb(245, 245, 245);
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 * {
     margin: 0;
@@ -15,11 +16,7 @@ $gray-600: rgb(245, 245, 245);
 }
 
 body {
-    min-height: 100vh;
-    background: linear-gradient(203deg,
-            rgba(131, 58, 180, 0.9) 0%,
-            rgba(253, 29, 29, 0.9) 50%,
-            rgba(252, 176, 69, 0.9) 100%);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .user-div:hover {
@@ -80,4 +77,73 @@ body {
     right: -10px;
     bottom: -25px;
     font-size: 0.9rem;
+}
+
+a {
+    // color: #3f51b5;
+    color: black;
+}
+
+a:hover {
+    // color: #3f51b5;
+    color: black;
+    text-decoration: none;
+}
+
+.login,
+.register {
+    height: 100vh;
+}
+
+.login-container,
+.register-container {
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    height: 100%;
+
+    h1 {
+        font-weight: 200;
+        margin-bottom: 20px;
+    }
+
+    button {
+        width: 100px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .form-input {
+        margin: 20px 0;
+    }
+
+    input {}
+}
+
+.login-buttons,
+.register-buttons {
+    text-align: center;
+}
+
+.login-buttons {
+    a {
+        color: #3f51b5;
+
+        &:hover {
+            color: #3f51b5;
+        }
+    }
+}
+
+.register-buttons {
+    a {
+        color: #f50057;
+
+        &:hover {
+            color: #f50057;
+        }
+    }
 }

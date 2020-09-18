@@ -35,7 +35,7 @@ const NEW_REACTION = gql`
     }
 `;
 
-const Home = ({ history }) => {
+const Dashboard = ({ history }) => {
     const authDispatch = useAuthDispatch();
     const messageDispatch = useMessageDispatch();
 
@@ -116,4 +116,4 @@ const Home = ({ history }) => {
     );
 };
 
-export default Home;
+export default Dashboard;

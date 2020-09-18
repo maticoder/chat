@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client";
+
+import { Grid, TextField, Button } from "@material-ui/core";
 
 const REGISTER_USER = gql`
     mutation register(
@@ -45,98 +47,96 @@ const Register = (props) => {
     };
 
     return (
-        <Row className="bg-white py-5 justify-content-center">
-            <Col sm={8} md={6} lg={4}>
-                <h1 className="text-center">Register</h1>
-
-                <Form onSubmit={submitRegisterForm}>
-                    <Form.Group>
-                        <Form.Label className={errors.email && "text-danger"}>
-                            {errors.email ?? "Email address"}
-                        </Form.Label>
-                        <Form.Control
-                            type="email"
-                            value={variables.email}
-                            className={errors.email && "is-invalid"}
-                            onChange={(e) =>
-                                setVariables({
-                                    ...variables,
-                                    email: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label
-                            className={errors.username && "text-danger"}
-                        >
-                            {errors.username ?? "Username"}
-                        </Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={variables.username}
-                            className={errors.username && "is-invalid"}
-                            onChange={(e) =>
-                                setVariables({
-                                    ...variables,
-                                    username: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label
-                            className={errors.password && "text-danger"}
-                        >
-                            {errors.password ?? "Password"}
-                        </Form.Label>
-                        <Form.Control
-                            type="password"
-                            value={variables.password}
-                            className={errors.password && "is-invalid"}
-                            onChange={(e) =>
-                                setVariables({
-                                    ...variables,
-                                    password: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label
-                            className={errors.confirmPassword && "text-danger"}
-                        >
-                            {errors.confirmPassword ?? "Confirm password"}
-                        </Form.Label>
-                        <Form.Control
-                            type="password"
-                            value={variables.confirmPassword}
-                            className={errors.confirmPassword && "is-invalid"}
-                            onChange={(e) =>
-                                setVariables({
-                                    ...variables,
-                                    confirmPassword: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Group>
-                    <div className="text-center">
-                        <Button
-                            variant="success"
-                            type="submit"
-                            disabled={loading}
-                        >
-                            {loading ? "loading..." : "Register"}
-                        </Button>
-                        <br />
-                        <small>
-                            Already have an account?{" "}
-                            <Link to="/login">Login</Link>
-                        </small>
-                    </div>
-                </Form>
-            </Col>
-        </Row>
+        <div className="register">
+            <Grid className="register-container" container>
+                <Grid item xs={7} sm={5} md={4} lg={4}>
+                    <h1 className="text-center">Register</h1>
+                    <form onSubmit={submitRegisterForm}>
+                        <div className="form-input">
+                            <TextField
+                                type="email"
+                                color="secondary"
+                                value={variables.email}
+                                error={errors.email ? true : false}
+                                label={errors.email ?? "Email"}
+                                onChange={(e) =>
+                                    setVariables({
+                                        ...variables,
+                                        email: e.target.value,
+                                    })
+                                }
+                                fullWidth
+                            />
+                        </div>
+                        <div className="form-input">
+                            <TextField
+                                type="text"
+                                color="secondary"
+                                value={variables.username}
+                                error={errors.username ? true : false}
+                                label={errors.username ?? "Username"}
+                                onChange={(e) =>
+                                    setVariables({
+                                        ...variables,
+                                        username: e.target.value,
+                                    })
+                                }
+                                fullWidth
+                            />
+                        </div>
+                        <div className="form-input">
+                            <TextField
+                                type="password"
+                                color="secondary"
+                                value={variables.password}
+                                error={errors.password ? true : false}
+                                label={errors.password ?? "Password"}
+                                onChange={(e) =>
+                                    setVariables({
+                                        ...variables,
+                                        password: e.target.value,
+                                    })
+                                }
+                                fullWidth
+                            />
+                        </div>
+                        <div className="form-input">
+                            <TextField
+                                type="password"
+                                color="secondary"
+                                value={variables.confirmPassword}
+                                error={errors.confirmPassword ? true : false}
+                                label={
+                                    errors.confirmPassword ?? "Confirm password"
+                                }
+                                onChange={(e) =>
+                                    setVariables({
+                                        ...variables,
+                                        confirmPassword: e.target.value,
+                                    })
+                                }
+                                fullWidth
+                            />
+                        </div>
+                        <div className="register-buttons">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                type="submit"
+                                disabled={loading}
+                            >
+                                {loading ? "loading..." : "Register"}
+                            </Button>
+                            <br />
+                            <small>
+                                Already have an account?{" "}
+                                <Link to="/login">Login</Link>
+                            </small>
+                        </div>
+                    </form>
+                </Grid>
+            </Grid>
+        </div>
     );
 };
 

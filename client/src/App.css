@@ -4,6 +4,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 :root {
   --blue: #1877f2;
   --indigo: #6610f2;
@@ -10807,8 +10808,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 body {
-  min-height: 100vh;
-  background: linear-gradient(203deg, rgba(131, 58, 180, 0.9) 0%, rgba(253, 29, 29, 0.9) 50%, rgba(252, 176, 69, 0.9) 100%);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .user-div:hover {
@@ -10881,4 +10881,72 @@ body {
   right: -10px;
   bottom: -25px;
   font-size: 0.9rem;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.login,
+.register {
+  height: 100vh;
+}
+
+.login-container,
+.register-container {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  height: 100%;
+}
+
+.login-container h1,
+.register-container h1 {
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+
+.login-container button,
+.register-container button {
+  width: 100px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.login-container .form-input,
+.register-container .form-input {
+  margin: 20px 0;
+}
+
+.login-buttons,
+.register-buttons {
+  text-align: center;
+}
+
+.login-buttons a {
+  color: #3f51b5;
+}
+
+.login-buttons a:hover {
+  color: #3f51b5;
+}
+
+.register-buttons a {
+  color: #f50057;
+}
+
+.register-buttons a:hover {
+  color: #f50057;
 }
