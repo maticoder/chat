@@ -33,7 +33,7 @@ const Login = (props) => {
                 type: "LOGIN",
                 payload: data.login,
             });
-            props.history.push("/");
+            window.location.href = "/";
         },
     });
 
