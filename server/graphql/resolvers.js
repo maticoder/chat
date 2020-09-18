@@ -18,11 +18,11 @@ module.exports = {
     Reaction: {
         uuid: (parent) => parent.id,
         createdAt: (parent) => parent.createdAt.toISOString(),
-        Message: async (parent) =>
+        message: async (parent) =>
             await Message.findOne({
                 _id: mongoose.Types.ObjectId(parent.messageId),
             }),
-        User: async (parent) =>
+        user: async (parent) =>
             await User.findOne({
                 _id: mongoose.Types.ObjectId(parent.userId),
             }).select({

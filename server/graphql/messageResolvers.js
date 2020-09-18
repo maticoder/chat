@@ -133,7 +133,6 @@ module.exports = {
 
                 pubsub.publish("NEW_REACTION", { newReaction: reaction });
 
-                console.log(reaction);
                 return reaction;
             } catch (err) {
                 throw err;
@@ -151,6 +150,27 @@ module.exports = {
                     if (
                         newMessage.from === user.username ||
                         newMessage.to === user.username
+                    ) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            ),
+        },
+        newReaction: {
+            subscribe: withFilter(
+                (_, __, { pubsub, user }) => {
+                    if (!user) throw new AuthenticationError("unauthenticated");
+                    return pubsub.asyncIterator("NEW_REACTION");
+                },
+                async ({ newReaction }, _, { user }) => {
+                    const message = await Message.findOne({
+                        _id: mongoose.Types.ObjectId(newReaction.messageId),
+                    });
+                    if (
+                        message.from === user.username ||
+                        message.to === user.username
                     ) {
                         return true;
                     }
