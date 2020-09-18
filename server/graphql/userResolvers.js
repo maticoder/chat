@@ -100,7 +100,7 @@ module.exports = {
 
                 return {
                     ...user.toJSON(),
-                    createdAt: user.createdAt.toISOString(),
+                    createdAt: user.createdAt,
                     token,
                 };
             } catch (err) {
@@ -152,6 +152,7 @@ module.exports = {
                     username,
                     email,
                     password,
+                    createdAt: Date.now(),
                 });
 
                 // Return user

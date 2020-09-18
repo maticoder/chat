@@ -1,10 +1,13 @@
 const User = require("../models/User");
 const Message = require("../models/Message");
+const Reaction = require("../models/Reaction");
 const {
     UserInputError,
     AuthenticationError,
+    ForbiddenError,
     withFilter,
 } = require("apollo-server");
+const mongoose = require("mongoose");
 
 module.exports = {
     Query: {
@@ -77,6 +80,62 @@ module.exports = {
                 return message;
             } catch (err) {
                 console.log(err);
+                throw err;
+            }
+        },
+        reactToMessage: async (_, { uuid, content }, { user, pubsub }) => {
+            const reactions = ["❤️", "😆", "😯", "😢", "😡", "👍", "👎"];
+
+            try {
+                // Validate reaction content
+                if (!reactions.includes(content)) {
+                    throw new UserInputError("invalid reaction");
+                }
+
+                // Get user
+                const username = user ? user.username : "";
+                user = await User.findOne({ username });
+                if (!user) throw new AuthenticationError("unauthenticated");
+
+                // Get message
+                const message = await Message.findOne({
+                    _id: new mongoose.Types.ObjectId(uuid),
+                });
+                if (!message) throw new UserInputError("message not found");
+
+                if (
+                    message.from !== user.username &&
+                    message.to !== user.username
+                ) {
+                    throw new ForbiddenError("unauthorized");
+                }
+
+                let reaction = await Reaction.findOne({
+                    messageId: message.id,
+                    userId: user.id,
+                });
+
+                if (reaction) {
+                    // Reaction exists, update it
+                    reaction.content = content;
+                    await reaction.save();
+                } else {
+                    // Reaction doesnt exists, create it
+                    reaction = await Reaction.create({
+                        messageId: message.id,
+                        userId: user.id,
+                        content,
+                        createdAt: Date.now(),
+                    });
+                }
+
+                // reaction.uuid = reaction.id;
+
+                pubsub.publish("NEW_REACTION", { newReaction: reaction });
+
+                console.log(reaction);
+                return reaction;
+            } catch (err) {
                 throw err;
             }
         },
