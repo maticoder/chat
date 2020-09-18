@@ -1,6 +1,10 @@
 const User = require("../models/User");
 const Message = require("../models/Message");
-const { UserInputError, AuthenticationError } = require("apollo-server");
+const {
+    UserInputError,
+    AuthenticationError,
+    withFilter,
+} = require("apollo-server");
 
 module.exports = {
     Query: {
@@ -37,7 +41,7 @@ module.exports = {
     },
 
     Mutation: {
-        sendMessage: async (parent, { to, content }, { user }) => {
+        sendMessage: async (parent, { to, content }, { user, pubsub }) => {
             try {
                 if (!user) {
                     throw new AuthenticationError("unauthenticated");
@@ -61,6 +65,11 @@ module.exports = {
                     from: user.username,
                     to,
                     content,
+                    createdAt: Date.now(),
+                });
+
+                pubsub.publish("NEW_MESSAGE", {
+                    newMessage: message,
                 });
 
                 // message.uuid = message.id;
@@ -70,6 +79,26 @@ module.exports = {
                 console.log(err);
                 throw err;
             }
+        },
+    },
+    Subscription: {
+        newMessage: {
+            subscribe: withFilter(
+                (_, __, { pubsub, user }) => {
+                    if (!user) throw new AuthenticationError("unauthenticated");
+                    return pubsub.asyncIterator("NEW_MESSAGE");
+                },
+                ({ newMessage }, _, { user }) => {
+                    if (
+                        newMessage.from === user.username ||
+                        newMessage.to === user.username
+                    ) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            ),
         },
     },
 };

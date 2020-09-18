@@ -49,9 +49,12 @@ const Users = () => {
             return (
                 <div
                     role="button"
-                    className={classNames("user-div d-flex p-3", {
-                        "bg-white": selected,
-                    })}
+                    className={classNames(
+                        "user-div d-flex justify-content-center justify-content-md-start p-3",
+                        {
+                            "bg-white": selected,
+                        }
+                    )}
                     key={user.username}
                     onClick={() =>
                         dispatch({
@@ -61,12 +64,13 @@ const Users = () => {
                     }
                 >
                     <Image
-                        src={user.imageUrl}
-                        roundedCircle
-                        className="mr-2"
-                        style={{ width: 50, height: 50, objectFit: "cover" }}
+                        src={
+                            user.imageUrl ||
+                            "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+                        }
+                        className="user-image"
                     />
-                    <div>
+                    <div className="d-none d-md-block  ml-2">
                         <p className="text-success">{user.username}</p>
                         <p className="font-weight-light">
                             {user.latestMessage
@@ -80,7 +84,7 @@ const Users = () => {
     }
 
     return (
-        <Col xs={4} className="p-0 bg-secondary">
+        <Col xs={2} md={4} className="p-0 bg-secondary">
             {usersMarkup}
         </Col>
     );
