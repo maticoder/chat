@@ -35,6 +35,17 @@ module.exports = {
                 });
 
                 // messages.forEach((message) => (message.uuid = message.id));
+                const reactions = await Reaction.find({});
+
+                messages.forEach((message) => {
+                    message.reactions = [];
+                    reactions.forEach((reaction) => {
+                        if (reaction.messageId === message.id) {
+                            message.reactions.push(reaction);
+                        }
+                    });
+                });
+
                 return messages;
             } catch (err) {
                 console.log(err);
@@ -84,7 +95,7 @@ module.exports = {
             }
         },
         reactToMessage: async (_, { uuid, content }, { user, pubsub }) => {
-            const reactions = ["❤️", "😆", "😯", "😢", "😡", "👍", "👎"];
+            const reactions = ["💚", "😆", "😯", "😢", "😡", "👍", "👎"];
 
             try {
                 // Validate reaction content

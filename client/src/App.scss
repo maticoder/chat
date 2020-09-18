@@ -16,12 +16,10 @@ $gray-600: rgb(245, 245, 245);
 
 body {
     min-height: 100vh;
-    background: linear-gradient(
-        203deg,
-        rgba(131, 58, 180, 0.9) 0%,
-        rgba(253, 29, 29, 0.9) 50%,
-        rgba(252, 176, 69, 0.9) 100%
-    );
+    background: linear-gradient(203deg,
+            rgba(131, 58, 180, 0.9) 0%,
+            rgba(253, 29, 29, 0.9) 50%,
+            rgba(252, 176, 69, 0.9) 100%);
 }
 
 .user-div:hover {
@@ -54,4 +52,32 @@ body {
     color: rgba(0, 0, 0, 0.5);
     text-align: center;
     margin-bottom: 0.5rem;
+}
+
+.react-button-popover {
+    height: 30px;
+}
+
+.react-icon-button {
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 1rem;
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.reactions-div {
+    position: absolute;
+    right: -10px;
+    bottom: -25px;
+    font-size: 0.9rem;
 }
