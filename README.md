@@ -36,9 +36,11 @@ The connection between client and the server is provided using GraphQL and Apoll
 
 ![](https://github.com/maticoder/chat-graphql/blob/master/images/server.png)
 
-The server is also connected to the MongoDB database using Atlas Cloud.
+The server is also connected to the MongoDB database using Atlas Cloud
 
 ![](https://github.com/maticoder/chat-graphql/blob/master/images/db.png)
+
+Also if you want, you can update your profile image, providing image url
 
 ## How to start using this app?
 
@@ -86,4 +88,4 @@ the first one start client application on `localhost:3000` and the second one st
 
 ## How does it look like?
 
-<!-- ![](https://github.com/maticoder/chat-graphql/blob/master/how.gif) -->
+![](https://github.com/maticoder/chat-graphql/blob/master/images/chat.gif)
