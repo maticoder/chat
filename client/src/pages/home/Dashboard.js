@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
-import { Row, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { gql, useSubscription } from "@apollo/client";
 
 import { useAuthDispatch, useAuthState } from "../../context/auth";
 import { useMessageDispatch } from "../../context/message";
+
+import { Grid } from "@material-ui/core";
 
 import Users from "./Users";
 import Messages from "./Messages";
@@ -96,23 +96,12 @@ const Dashboard = ({ history }) => {
     };
 
     return (
-        <Fragment>
-            <Row className="bg-white justify-content-around mb-1">
-                <Link to="/login">
-                    <Button variant="link">Login</Button>
-                </Link>
-                <Link to="/register">
-                    <Button variant="link">Register</Button>
-                </Link>
-                <Button variant="link" onClick={logout}>
-                    Logout
-                </Button>
-            </Row>
-            <Row className="bg-white">
+        <div className="dashboard">
+            <Grid container direction="row">
                 <Users />
                 <Messages />
-            </Row>
-        </Fragment>
+            </Grid>
+        </div>
     );
 };
 

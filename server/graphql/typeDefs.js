@@ -36,6 +36,7 @@ module.exports = gql`
             password: String!
             confirmPassword: String!
         ): User!
+        updateImageUrl(imageUrl: String!): String!
         sendMessage(to: String!, content: String!): Message!
         reactToMessage(uuid: String!, content: String!): Reaction!
     }

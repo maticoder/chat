@@ -1,19 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import ChatIcon from "@material-ui/icons/Chat";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+
+import { useAuthDispatch, useAuthState } from "../context/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,21 +23,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar() {
     const classes = useStyles();
-    const [auth, setAuth] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
+    const authDispatch = useAuthDispatch();
+    const { user } = useAuthState();
+
+    const logout = () => {
+        authDispatch({
+            type: "LOGOUT",
+        });
+
+        window.location.href = "/login";
     };
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const navbarMarkup = !user ? (
+        <Fragment>
+            <Button color="inherit">
+                <Link to="/login">Login</Link>
+            </Button>
+            <Button color="inherit">
+                <Link to="/register">Register</Link>
+            </Button>
+        </Fragment>
+    ) : (
+        <Fragment>
+            <Link to="/profile">
+                <IconButton>
+                    <AccountCircleIcon style={{ color: "white" }} />
+                </IconButton>
+            </Link>
+            <Link to="/dashboard">
+                <Button color="inherit">Dashboard</Button>
+            </Link>
+            {/* <Button color="inherit">
+                <Link to="/profile">Profile</Link>
+            </Button> */}
+            <Button color="inherit" onClick={logout}>
+                Logout
+            </Button>
+        </Fragment>
+    );
 
     return (
         <div className="nav">
@@ -53,48 +71,7 @@ export default function MenuAppBar() {
                         <Link to="/">Chat</Link>
                     </Typography>
 
-                    <Button color="inherit">
-                        <Link to="/login">Login</Link>
-                    </Button>
-                    <Button color="inherit">
-                        <Link to="/register">Register</Link>
-                    </Button>
-
-                    {auth && (
-                        <div>
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}>
-                                    Profile
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    My account
-                                </MenuItem>
-                            </Menu>
-                        </div>
-                    )}
+                    {navbarMarkup}
                 </Toolbar>
             </AppBar>
         </div>

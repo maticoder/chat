@@ -10811,6 +10811,10 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 .app {
   height: 100vh;
 }
@@ -10905,12 +10909,14 @@ a:hover {
 }
 
 .login,
-.register {
+.register,
+.home {
   height: 90vh;
 }
 
 .login-container,
-.register-container {
+.register-container,
+.home-container {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -10925,20 +10931,23 @@ a:hover {
 }
 
 .login-container h1,
-.register-container h1 {
+.register-container h1,
+.home-container h1 {
   font-weight: 200;
   margin-bottom: 20px;
 }
 
 .login-container button,
-.register-container button {
+.register-container button,
+.home-container button {
   width: 100px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
 .login-container .form-input,
-.register-container .form-input {
+.register-container .form-input,
+.home-container .form-input {
   margin: 20px 0;
 }
 
@@ -10961,4 +10970,52 @@ a:hover {
 
 .register-buttons a:hover {
   color: #f50057;
+}
+
+.image-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.image-container img {
+  width: 70%;
+  height: auto;
+}
+
+.home-container h2 {
+  font-weight: 200;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.dashboard {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+}
+
+.buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.buttons button {
+  margin: 20px 10px;
+}
+
+.buttons a {
+  color: white;
 }

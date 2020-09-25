@@ -110,6 +110,36 @@ module.exports = {
         },
     },
     Mutation: {
+        updateImageUrl: async (_, args, { user }) => {
+            if (!user) {
+                throw new AuthenticationError("unauthenticated");
+            }
+
+            let { imageUrl } = args;
+            let errors = {};
+
+            try {
+                if (imageUrl.trim() === "") errors.imageUrl = "no image found";
+
+                if (Object.keys(errors).length > 0) {
+                    throw errors;
+                }
+
+                const userData = await User.findOne({
+                    username: user.username,
+                });
+
+                userData.imageUrl = imageUrl;
+                userData.save();
+
+                return imageUrl;
+            } catch (err) {
+                if (err.name === "ValidationError") {
+                    errors.general = "Validation problem";
+                }
+                throw new UserInputError("Bad input", { errors });
+            }
+        },
         register: async (_, args) => {
             let { username, email, password, confirmPassword } = args;
             let errors = {};

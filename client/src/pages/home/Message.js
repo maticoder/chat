@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { useAuthState } from "../../context/auth";
 import moment from "moment";
-import { OverlayTrigger, Tooltip, Button, Popover } from "react-bootstrap";
+import { OverlayTrigger, Button, Popover } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client";
+import { Tooltip } from "@material-ui/core";
 
 const reactions = ["💚", "😆", "😯", "😢", "😡", "👍", "👎"];
 
@@ -76,15 +77,11 @@ const Message = ({ message }) => {
             })}
         >
             {sent && reactButton}
-            <OverlayTrigger
+            <Tooltip
                 placement={sent ? "right" : "left"}
-                overlay={
-                    <Tooltip>
-                        {moment(message.createdAt).format(
-                            "MMMM DD, YYYY @ h:mm a"
-                        )}
-                    </Tooltip>
-                }
+                title={moment(message.createdAt).format(
+                    "MMMM DD, YYYY @ h:mm a"
+                )}
             >
                 <div
                     className={classNames(
@@ -109,7 +106,7 @@ const Message = ({ message }) => {
                         {message.content}
                     </p>
                 </div>
-            </OverlayTrigger>
+            </Tooltip>
             {received && reactButton}
         </div>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { Col, Image } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import classNames from "classnames";
 
 import { useMessageState, useMessageDispatch } from "../../context/message";
@@ -63,7 +63,7 @@ const Users = () => {
                         })
                     }
                 >
-                    <Image
+                    <img
                         src={
                             user.imageUrl ||
                             "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"

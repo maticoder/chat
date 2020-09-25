@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
-import { Col, Form } from "react-bootstrap";
+import { TextField } from "@material-ui/core";
+import { Col } from "react-bootstrap";
 
 import { useMessageState, useMessageDispatch } from "../../context/message";
 
@@ -119,22 +120,23 @@ const Messages = () => {
                 {selectedChatMarkup}
             </div>
             <div className="px-3 py-2">
-                <Form onSubmit={submitMessage}>
-                    <Form.Group className="d-flex align-items-center m-0">
-                        <Form.Control
+                <form onSubmit={submitMessage}>
+                    <div className="d-flex align-items-center m-0">
+                        <TextField
                             type="text"
-                            className="message-input rounded-pill p-4 bg-secondary border-0"
+                            variant="filled"
                             placeholder="Type a message..."
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
+                            fullWidth
                         />
                         <i
                             className="fas fa-paper-plane fa-2x text-primary ml-2"
                             onClick={submitMessage}
                             role="button"
                         ></i>
-                    </Form.Group>
-                </Form>
+                    </div>
+                </form>
             </div>
         </Col>
     );
