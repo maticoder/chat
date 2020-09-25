@@ -30,15 +30,15 @@ Material UI
 
 This application was made to help you stay connected to your friends. You can send and react to messages
 
-![](https://github.com/maticoder/todo-firebase-facebook-auth/blob/master/images/chat.png)
+![](https://github.com/maticoder/chat-graphql/blob/master/images/chat.png)
 
 The connection between client and the server is provided using GraphQL and Apollo Server
 
-![](https://github.com/maticoder/todo-firebase-facebook-auth/blob/master/images/server.png)
+![](https://github.com/maticoder/chat-graphql/blob/master/images/server.png)
 
 The server is also connected to the MongoDB database using Atlas Cloud.
 
-![](https://github.com/maticoder/todo-firebase-facebook-auth/blob/master/images/db.png)
+![](https://github.com/maticoder/chat-graphql/blob/master/images/db.png)
 
 ## How to start using this app?
 
@@ -83,3 +83,7 @@ npm run dev
 ```
 
 the first one start client application on `localhost:3000` and the second one start the Apollo server on `localhost:4000`
+
+## How does it look like?
+
+<!-- ![](https://github.com/maticoder/chat-graphql/blob/master/how.gif) -->
