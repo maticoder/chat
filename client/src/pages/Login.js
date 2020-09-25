@@ -35,6 +35,7 @@ const Login = (props) => {
                 payload: data.login,
             });
             window.location.href = "/dashboard";
+            // props.history.push("/dashboard");
         },
     });
 

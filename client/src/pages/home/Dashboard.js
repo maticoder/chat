@@ -93,6 +93,7 @@ const Dashboard = ({ history }) => {
         });
 
         window.location.href = "/login";
+        // history.push("/login");
     };
 
     return (
