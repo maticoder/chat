@@ -5,7 +5,7 @@ This is a chat application, where you can login and register using your own emai
 ## Live Demo
 
 You may check the live demo of this application, simply click the link below
-[link to application!](https://todo-maticoder.netlify.app/)
+[link to application!](https://chat-hoti.web.app/)
 
 You can create your own account and then log in using your username and password or you can use a demo user, simply log in using following data
 
